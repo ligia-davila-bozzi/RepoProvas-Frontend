@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Satisfy&display=swap");
+
+body {
+  background: linear-gradient(
+    180deg,
+    #ff7800 25%,
+    rgba(255, 120, 0, 0.444444) 70%,
+    rgba(255, 120, 0, 0) 99.99%
+  );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}

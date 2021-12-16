@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Home() {
@@ -10,8 +11,12 @@ export default function Home() {
       </StyledDescription>
       <StyledContainer>
         <h1>O que você quer fazer hoje?</h1>
-        <button>Enviar Prova</button>
-        <button>Consultar Provas</button>
+        <Link to="/send">
+          <button>Enviar Prova</button>
+        </Link>
+        <button onClick={()=>alert("Esta parte ainda está em construção")}>
+          Consultar Provas
+        </button>
       </StyledContainer>
     </>
   );
@@ -46,7 +51,7 @@ const StyledContainer = styled.main`
   button {
     background: #f6e7d9;
     box-shadow: 6px 8px 14px 1px rgba(0, 0, 0, 0.25);
-    border:none;
+    border: none;
     border-radius: 15px;
     width: 263px;
     height: 144px;

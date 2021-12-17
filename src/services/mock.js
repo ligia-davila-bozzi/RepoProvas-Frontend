@@ -20,3 +20,4 @@ export const professors = [
     subjects: [3],
   },
 ];
+export const examCategories = ["P1", "P2", "P3", "PO", "Exame"];

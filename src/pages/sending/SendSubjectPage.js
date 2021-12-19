@@ -1,19 +1,29 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SendingContext from "../../contexts/SendingContext";
-import { subjects } from "../../services/mock";
 import Brand from "../../shared/Brand";
 import { StyledQuestionTitle } from "../../shared/StyledComponents";
 import BackButton from "./components/BackButton";
+import * as APIrequest from "../../services/API/requests";
 
 export default function SendSubjectPage() {
   const { selectedSubject, setSelectedSubject } = useContext(SendingContext);
+  const [subjectList, setSubjectList] = useState([]);
   const navigate = useNavigate();
   function selectAndGoForward(subject) {
     setSelectedSubject(subject);
     navigate("professors");
   }
+  useEffect(() => {
+    APIrequest.getSubjects()
+      .then((res) => setSubjectList(res.data))
+      .catch(() =>
+        alert(
+          "Erro ao carregar lista de matérias. Por favor, recarregue a página."
+        )
+      );
+  }, [setSubjectList]);
   return (
     <>
       <Brand />
@@ -21,7 +31,7 @@ export default function SendSubjectPage() {
       <StyledContainer>
         <StyledQuestionTitle>Qual a disciplina?</StyledQuestionTitle>
         <StyledOptionsContainer>
-          {subjects.map((subject, index) => (
+          {subjectList.map((subject, index) => (
             <StyledOption
               key={index}
               onClick={() => selectAndGoForward(subject)}

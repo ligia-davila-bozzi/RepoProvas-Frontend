@@ -1,20 +1,30 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SendingContext from "../../contexts/SendingContext";
-import { professors } from "../../services/mock";
 import Brand from "../../shared/Brand";
 import { StyledQuestionTitle } from "../../shared/StyledComponents";
 import BackButton from "./components/BackButton";
+import * as APIrequest from "../../services/API/requests";
 
 export default function SendProfessorPage() {
   const { selectedSubject, selectedProfessor, setSelectedProfessor } =
     useContext(SendingContext);
+  const [professorsList, setProfessorsList] = useState([]);
   const navigate = useNavigate();
   function selectAndGoForward(professor) {
     setSelectedProfessor(professor);
     navigate("data");
   }
+  useEffect(() => {
+    APIrequest.getProfessorsBySubject(selectedSubject.id)
+      .then((res) => setProfessorsList(res.data))
+      .catch(() =>
+        alert(
+          "Erro ao carregar lista de professores. Por favor, recarregue a página."
+        )
+      );
+  }, [selectedSubject.id]);
   return (
     <>
       <Brand />
@@ -22,7 +32,7 @@ export default function SendProfessorPage() {
       <StyledContainer>
         <StyledQuestionTitle>Qual o professor?</StyledQuestionTitle>
         <StyledOptionsContainer>
-          {professors.filter(professor => professor.subjects.includes(selectedSubject.id)).map((professor, index) => (
+          {professorsList.map((professor, index) => (
             <StyledOption
               key={index}
               onClick={() => selectAndGoForward(professor)}

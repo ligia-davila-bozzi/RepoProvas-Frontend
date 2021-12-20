@@ -1,35 +1,25 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import BackButton from "../components/BackButton";
 import Brand from "../shared/Brand";
 import { StyledQuestionTitle } from "../shared/StyledComponents";
-export default function Home() {
+export default function ListOptionPage() {
   return (
     <>
       <Brand />
-      <StyledDescription>
-        Encontre todas as provas antigas das matérias que está fazendo e
-        contribua para que outros alunos façam o mesmo
-      </StyledDescription>
+      <BackButton />
       <StyledContainer>
-        <StyledQuestionTitle>O que você quer fazer hoje?</StyledQuestionTitle>
-        <Link to="/send/subjects">
-          <button>Enviar Prova</button>
+        <StyledQuestionTitle>Como você quer buscar?</StyledQuestionTitle>
+        <Link to="/get/subjects">
+          <button>Buscar por matéria</button>
         </Link>
-        <Link to="/get">
-          <button>Consultar Provas</button>
-        </Link>
+        <button onClick={() => alert("Esta parte ainda está em construção")}>
+          Buscar por professor 
+        </button>
       </StyledContainer>
     </>
   );
 }
-const StyledDescription = styled.p`
-  margin: 32px 0 0 32px;
-  font-family: "Roboto", sans-serif;
-  font-size: 18.72px;
-  line-height: 22px;
-  letter-spacing: 0.05em;
-  color: #f7f7f7;
-`;
 const StyledContainer = styled.main`
   display: flex;
   flex-direction: column;

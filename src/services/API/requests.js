@@ -4,6 +4,10 @@ export function getSubjects() {
   return axiosBase.get("/subjects");
 }
 
+export function getSubjectsBySemester(){
+  return axiosBase.get("/subjects/by-semesters");
+}
+
 export function getProfessorsBySubject(subjectId) {
   return axiosBase.get(`/professors?subjectId=${subjectId}`);
 }

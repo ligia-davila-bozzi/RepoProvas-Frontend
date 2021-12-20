@@ -4,7 +4,7 @@ import styled from "styled-components";
 import SendingContext from "../../contexts/SendingContext";
 import Brand from "../../shared/Brand";
 import { StyledQuestionTitle } from "../../shared/StyledComponents";
-import BackButton from "./components/BackButton";
+import BackButton from "../../components/BackButton";
 import * as APIrequest from "../../services/API/requests";
 
 export default function SendProfessorPage() {

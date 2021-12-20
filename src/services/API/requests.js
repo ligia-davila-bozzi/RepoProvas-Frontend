@@ -1,9 +1,9 @@
 import axiosBase from "./axiosBase";
 
 export function getSubjects() {
-	return axiosBase.get("/subjects");
+  return axiosBase.get("/subjects");
 }
 
 export function getProfessorsBySubject(subjectId) {
-	return axiosBase.get(`/professors?subjectId=${subjectId}`);
+  return axiosBase.get(`/professors?subjectId=${subjectId}`);
 }

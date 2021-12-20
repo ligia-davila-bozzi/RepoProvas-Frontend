@@ -39,59 +39,63 @@ export default function SendDataPage() {
       categoryId: selectedCategory.id,
       pdfLink,
     })
-      .then((res) => {
+      .then(() => {
         alert("Obrigado por contribuir!");
         navigate("/");
       })
-      .catch(() =>
-        alert(
-          "Erro ao enviar tente novamente mais tarde."
-        )
-      );
+      .catch(() => alert("Erro ao enviar tente novamente mais tarde."));
   }
   return (
     <>
       <Brand />
       <BackButton />
-      <StyledForm onSubmit={requestSubmition}>
-        <StyledInput
-          placeholder="Nome da prova ex(2021.2)"
-          type="number"
-          onChange={(event) => setExamName(event.target.value)}
-          value={examName}
-          required
-        />
-        <StyledQuestionTitle>Qual a categoria?</StyledQuestionTitle>
-        <StyledOptionsContainer>
-          {categories.map((category, index) => (
-            <StyledOption
-              key={index}
-              onClick={() => setSelectedCategory(category)}
-              isSelected={category === selectedCategory}
-            >
-              {category.name}
-            </StyledOption>
-          ))}
-        </StyledOptionsContainer>
-        <StyledInput
-          placeholder="Link do pdf"
-          type="url"
-          onChange={(event) => setPDFLink(event.target.value)}
-          value={pdfLink}
-          required
-        />
-        <StyledSendButton type="submit">ENVIAR</StyledSendButton>
-      </StyledForm>
+      <StyledContainer>
+        <StyledForm onSubmit={requestSubmition}>
+          <StyledInput
+            placeholder="Nome da prova ex(2021.2)"
+            type="number"
+            onChange={(event) => setExamName(event.target.value)}
+            value={examName}
+            required
+          />
+          <StyledQuestionTitle>Qual a categoria?</StyledQuestionTitle>
+          <StyledOptionsContainer>
+            {categories.map((category, index) => (
+              <StyledOption
+                key={index}
+                onClick={() => setSelectedCategory(category)}
+                isSelected={category === selectedCategory}
+              >
+                {category.name}
+              </StyledOption>
+            ))}
+          </StyledOptionsContainer>
+          <StyledInput
+            placeholder="Link do pdf"
+            type="url"
+            onChange={(event) => setPDFLink(event.target.value)}
+            value={pdfLink}
+            required
+          />
+          <StyledSendButton type="submit">ENVIAR</StyledSendButton>
+        </StyledForm>
+      </StyledContainer>
     </>
   );
 }
 
+const StyledContainer = styled.main`
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-top: 80px;
+  align-items: center;
+  width: 100%;
+`;
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 48px;
-  margin: 0 32px;
-  margin-top: 80px;
   align-items: center;
   width: 322px;
 `;

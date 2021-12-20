@@ -1,13 +1,17 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import SendingContext from "../../contexts/SendingContext";
-import { examCategories } from "../../services/mock";
 import Brand from "../../shared/Brand";
 import { StyledQuestionTitle } from "../../shared/StyledComponents";
 import BackButton from "./components/BackButton";
+import * as APIrequest from "../../services/API/requests";
+import { useNavigate } from "react-router-dom";
 
 export default function SendDataPage() {
+  const [categories, setCategories] = useState([]);
   const {
+    selectedSubject,
+    selectedProfessor,
     examName,
     setExamName,
     pdfLink,
@@ -15,10 +19,35 @@ export default function SendDataPage() {
     selectedCategory,
     setSelectedCategory,
   } = useContext(SendingContext);
+  useEffect(() => {
+    APIrequest.getCategories()
+      .then((res) => setCategories(res.data))
+      .catch(() =>
+        alert(
+          "Erro ao carregar lista de categorias. Por favor, recarregue a página."
+        )
+      );
+  }, []);
+  const navigate = useNavigate();
   function requestSubmition(e) {
     e.preventDefault();
-    if(!selectedCategory) return alert("Por favor escolha uma categoria");
-
+    if (!selectedCategory) return alert("Por favor escolha uma categoria");
+    APIrequest.postExam({
+      name: examName,
+      professorId: selectedProfessor.id,
+      subjectId: selectedSubject.id,
+      categoryId: selectedCategory.id,
+      pdfLink,
+    })
+      .then((res) => {
+        alert("Obrigado por contribuir!");
+        navigate("/");
+      })
+      .catch(() =>
+        alert(
+          "Erro ao enviar tente novamente mais tarde."
+        )
+      );
   }
   return (
     <>
@@ -34,13 +63,13 @@ export default function SendDataPage() {
         />
         <StyledQuestionTitle>Qual a categoria?</StyledQuestionTitle>
         <StyledOptionsContainer>
-          {examCategories.map((category,index) => (
+          {categories.map((category, index) => (
             <StyledOption
-            key={index}
+              key={index}
               onClick={() => setSelectedCategory(category)}
               isSelected={category === selectedCategory}
             >
-              {category}
+              {category.name}
             </StyledOption>
           ))}
         </StyledOptionsContainer>

@@ -7,3 +7,11 @@ export function getSubjects() {
 export function getProfessorsBySubject(subjectId) {
   return axiosBase.get(`/professors?subjectId=${subjectId}`);
 }
+
+export function getCategories() {
+  return axiosBase.get("/categories");
+}
+
+export function postExam(examBody) {
+  return axiosBase.post("/exams", examBody);
+}
